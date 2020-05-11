@@ -36,7 +36,10 @@ function findElement(arr, value) {
  */
 function generateOdds(len) {
   let value = -1;
-  return new Array(len).fill(0).map((val, i, arr) => (value += 2));
+  return new Array(len).fill(0).map(() => {
+    value += 2;
+    return value;
+  });
 }
 
 /**
@@ -269,7 +272,7 @@ function getSecondItems(arr) {
 function propagateItemsByPositionIndex(arr) {
   return arr.reduce(
     (prevVal, curVal, i) => prevVal.concat(new Array(i + 1).fill(curVal)),
-    []
+    [],
   );
 }
 
@@ -309,7 +312,7 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
   return arr.reduce((prevVal, curVal) => {
     if (typeof curVal === 'number' && curVal > 0) {
-      return ++prevVal;
+      return prevVal + 1;
     }
     return prevVal;
   }, 0);
@@ -357,7 +360,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
-  return arr.reduce((prevVal, curVal) => (prevVal += curVal), 0);
+  return arr.reduce((prevVal, curVal) => (prevVal + curVal), 0);
 }
 
 /**
@@ -375,7 +378,7 @@ function getItemsSum(arr) {
 function getFalsyValuesCount(arr) {
   return arr.reduce((pv, cv) => {
     if (!cv) {
-      return ++pv;
+      return pv + 1;
     }
     return pv;
   }, 0);
@@ -398,7 +401,7 @@ function getFalsyValuesCount(arr) {
 function findAllOccurences(arr, item) {
   return arr.reduce((pv, cv) => {
     if (cv === item) {
-      return ++pv;
+      return pv + 1;
     }
     return pv;
   }, 0);
@@ -506,8 +509,8 @@ function getIdentityMatrix(n) {
 function getIntervalArray(start, end) {
   const arr = new Array(end - start + 1).fill(0);
   let curVal = start - 1;
-  return arr.map((i) => {
-    curVal++;
+  return arr.map(() => {
+    curVal += 1;
     return curVal;
   });
 }
@@ -582,9 +585,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-  return arr.reduce((prevVal, curVal) => {
-    return prevVal.concat(childrenSelector(curVal));
-  }, []);
+  return arr.reduce((prevVal, curVal) => prevVal.concat(childrenSelector(curVal)), []);
 }
 
 /**
@@ -600,9 +601,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-  return indexes.reduce((prevVal, curVal) => {
-    return prevVal[curVal];
-  }, arr);
+  return indexes.reduce((prevVal, curVal) => prevVal[curVal], arr);
 }
 
 /**
